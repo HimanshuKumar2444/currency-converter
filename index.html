@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/a17cd508b9.js" crossorigin="anonymous"></script>
+
+    <style>
+
+      *{
+        margin: 0;
+        padding: 0;
+      }
+      .contain {
+        background-color: #D9AFD9;
+        background-image: linear-gradient(0deg, #D9AFD9 0%, #97D9E1 100%);
+        /* background-color: #720455; */
+
+        width: 100%;
+        height: 100vh;
+        /* padding: 10%; */  
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .container {
+        /* padding: 5%; */
+
+        /* background-color: blue; */
+        /* margin: 10px; */
+        width: 713px;
+       height: 306px ;
+        display: flex;
+        justify-content: space-around;
+      }
+      .left-div {
+        /* background-color: yellow; */
+        margin-top: 10px;
+        height: 200px;
+        width: 200px;
+      }
+      .right-div {
+        margin-top: 10px;
+        /* background-color: rgb(0, 255, 13); */
+        height: 200px;
+        width: 200px;
+      }
+      .middle-div {
+        /* background-color: hotpink; */
+        width: 714px;
+        height: 158px;
+        /* margin-top: 20px; */
+        display: flex;
+        justify-content: space-around;
+      }
+      .allitems{
+        border: 2px solid #720455;
+        padding: 10px;
+      }
+
+      img{
+        width: 150px;
+        height: 150px;
+        transition: all ease 3s;
+      }
+
+
+
+      
+
+
+      
+        
+         img:hover{
+          /* transform: translate(20px, 10px); */
+        transform: rotate(360deg);
+          /* transform: rotate(-20deg); */
+          /* transform: scale(2, 3); */
+          /* transform: skewX(20deg); */
+          /* transform: skew(10deg,10deg); */
+          /* transform: matrix(1, -0.3, 0, 1, 0, 0); */
+        } 
+        
+
+      
+
+      select{
+        width: 150px;
+        height: 35px;
+        font-size: 20px;
+        font-family:sans-serif;
+        border-radius: 10px;
+        background-color: rgba(70, 112, 248, 0.861);
+        color: white;
+        cursor: pointer;
+      }
+      .amount{
+        height: 30px;
+        width: 150px;
+        font-size: 20px;
+        background-color: rgba(80, 119, 245, 0.861);
+        color: white;
+        border-radius: 10px;
+      }
+      .btn{
+        
+        margin-left: 30%;
+        width: 300px;
+        height: 50px;
+        border-radius: 10px;
+        background-color: rgba(12, 62, 226, 0.861);
+        color: #D9AFD9;
+        font-size: 22px;
+        transition: all ease .2s;
+      
+      }
+      .btn:hover{
+        background-color:#FF004D;
+        color: black;
+        cursor: pointer;
+      }
+      p{
+        font-size: 20px;
+        font-weight: 600;
+      }
+      .output{
+        width: 200px;
+        height: 35px;
+        background-color:black;
+        color: white;
+        box-sizing: border-box;
+        padding: 5px;
+        border-radius: 5px;
+        /* margin-top: 25px; */
+      }
+      i{
+        font-size: 30px;
+        color:black;
+        font-weight: 600;
+      }
+
+      
+     
+
+      
+
+
+    </style>
+  </head>
+  <body>
+    <div class="contain">
+
+      <h2>Currency Converter</h2>
+
+      <div class="allitems">
+      <div class="container">
+        <div class="left-div">
+         
+          <img src="https://flagsapi.com/US/flat/64.png" alt="" class="flag" />
+          <select  id="" class="select1">
+            
+                   
+          </select>
+        </div>
+        <div class="right-div">
+          
+
+          <img src="https://flagsapi.com/IN/flat/64.png" alt="" class="flag1" />
+
+          <select  class="select2">
+            
+          </select>
+        </div>
+      </div>
+
+      <div class="middle-div">
+        <div>
+          <p>Enter your amount</p>
+          <input type="number" class="amount" value="1" />
+        </div>
+
+        <i class="fa-solid fa-arrow-right-arrow-left"></i>
+       
+
+        <div>
+          <p>Exchanging Amount</p>
+          <div class="output">83</div>
+        </div>
+        
+      </div>
+
+      <button class="btn" >check</button>
+
+    </div>
+    </div>
+    <script src="country.js"></script>
+
+    <script>
+      let myoption = document.querySelector(".select1");
+      let myoption2 = document.querySelector(".select2");
+      let myflag = document.querySelector(".flag");
+      let myflag1 = document.querySelector(".flag1");
+      let output=document.querySelector('.output');
+
+      let from_curr;
+      let to_curr;
+      let newsrc;
+
+      let i=0 ,j=0;
+
+      for (let key in countryList) {
+        // console.log(key)
+        let additems = document.createElement("option");
+        let additems2 = document.createElement("option");
+
+        // document.querySelector('.select').appendChild(additems)
+        myoption.appendChild(additems);
+        myoption2.appendChild(additems2);
+
+        additems.innerHTML = `${key}`;
+        additems2.innerHTML = `${key}`;
+
+        if (key === "USD" || key === "INR") {
+          myoption.value = "USD";
+
+          myoption2.value = "INR"; 
+        }
+    }
+
+        
+
+      myoption.addEventListener("click", function () {
+        i++;
+        let selectedvalue = myoption.value;
+        
+        for (let key in countryList) {
+          if (selectedvalue === key) {
+            newsrc = `https://flagsapi.com/${countryList[key]}/flat/64.png`;
+            from_curr = `${key}`;
+          }
+        }
+        
+        myflag.src = newsrc;
+
+        
+      });
+
+      myoption2.addEventListener("click", function () {
+        j++;
+        let selectedvalue2 = myoption2.value;
+       
+        let newsrc1;
+
+        for (let key in countryList) {
+          if (selectedvalue2 === key) {
+            newsrc1 = `https://flagsapi.com/${countryList[key]}/flat/64.png`;
+            to_curr = key;
+          }
+        }
+       
+        myflag1.src = newsrc1;
+
+        
+      });
+
+      //  currency Api=> https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd/inr.json
+
+      const BASE_URL =
+        "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies";
+
+     async function exchangeamount() {
+        let my_entered_amount = document.querySelector(".amount");
+        let myamount = my_entered_amount.value;
+        if (myamount < 1 || myamount == "") {
+          my_entered_amount.value = "1";
+          myamount = 1;
+        }
+        console.log(myamount);
+        // console.log(from_curr,to_curr)
+
+        console.log(from_curr, to_curr);
+
+        
+
+        
+
+        try{
+            const url=`${BASE_URL}/${from_curr.toLowerCase()}/${to_curr.toLowerCase()}.json`
+            let response= await fetch(url);
+        let data=await response.json();
+        let rate=data[to_curr.toLowerCase()]
+        console.log("myrate="+rate)
+        // startvalue=(rate===Number)?83:rate;
+
+        myfinal_amount=Math.round(myamount*rate);
+        // console.log(myfinal_amount)
+        output.innerHTML=myfinal_amount;
+        }
+        catch(error){
+            console.log('my error is:'+error)
+
+        }
+
+
+
+      }
+
+     
+
+      const starting_value =()=>{
+        let starting_amount=document.querySelector('.amount').value;
+       let finalamount=starting_amount*83;
+    //    console.log(finalamount)
+       output.innerHTML=finalamount;
+
+      }
+      let mybtn=document.querySelector('.btn');
+        mybtn.addEventListener('click',()=>{
+            exchangeamount();
+        })
+
+      
+    //   if(i===0&&j===0){
+    //     let mybtn=document.querySelector('.btn');
+        
+    //     console.log(i,j);
+    //     mybtn.addEventListener('click',()=>{
+    //         starting_value();
+
+    //     })
+    //   }
+    //   else if(i>=0 &&j>=0){
+       
+    //   }
+      
+
+     
+      // let selectvalue=document.querySelector('.select')
+      // console.log(selectvalue.value)
+    </script>
+  </body>
+</html>
